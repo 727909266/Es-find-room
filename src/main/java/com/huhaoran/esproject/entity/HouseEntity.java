@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
-@Table(name = "house", schema = "elasticsearch", catalog = "")
+@Table(name = "house", schema = "elasticsearch")
 public class HouseEntity {
     private int id;
     private String title;

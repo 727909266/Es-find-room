@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "support_address", schema = "elasticsearch", catalog = "")
+@Table(name = "support_address", schema = "elasticsearch")
 public class SupportAddressEntity {
     private int id;
     private String belongTo;

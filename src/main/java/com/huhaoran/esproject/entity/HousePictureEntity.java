@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "house_picture", schema = "elasticsearch", catalog = "")
+@Table(name = "house_picture", schema = "elasticsearch")
 public class HousePictureEntity {
     private int id;
     private int houseId;
