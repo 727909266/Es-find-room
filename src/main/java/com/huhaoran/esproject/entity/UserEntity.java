@@ -19,6 +19,7 @@ public class UserEntity {
     private String avatar;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //为了兼容mysql和H2，不使用auto
     @Column(name = "id")
     public int getId() {
         return id;
