@@ -1,5 +1,8 @@
 server:
   port: 8080
+  error:
+    whitelabel:
+      enabled: false  #不让springboot自动生成whitelabel这个页面
 
 spring:
   profiles:
@@ -11,6 +14,9 @@ spring:
     hibernate:
       ddl-auto: none #validate
     database-platform: org.hibernate.dialect.MySQL5Dialect
+  devtools:
+    restart:
+      exclude: templates/**,static/** #springboot devtools是全局监听的，去掉前端修改引起的没必要热加载。因为设置了thymeleaf不使用cache
 
 logging:
   level:

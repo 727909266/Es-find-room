@@ -51,6 +51,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements Application
         springResourceTemplateResolver.setApplicationContext(applicationContext);
         springResourceTemplateResolver.setPrefix("classpath:/templates/");
         springResourceTemplateResolver.setSuffix(".html");
+        //springResourceTemplateResolver.setCharacterEncoding("UTF-8");
         springResourceTemplateResolver.setTemplateMode(TemplateMode.HTML);
         springResourceTemplateResolver.setCacheable(false);
         return springResourceTemplateResolver;

@@ -1,6 +1,6 @@
 package com.huhaoran.esproject.utils;
 
-import com.huhaoran.esproject.enums.CodeEnum;
+import com.huhaoran.esproject.enums.codeEnum.CodeEnum;
 
 public class CodeEnumUtil {
     public static <T extends CodeEnum> T getBycode(int code, Class<T> codeEnumClass) {

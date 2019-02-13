@@ -17,10 +17,24 @@ public class HomeController {
         return "index";
     }
 
-    @GetMapping("/get")
-    @ResponseBody
-    public ApiResponse get() {
-        return ApiResponse.ofSuccess(null);
+    @GetMapping("/404")
+    public String notFoundPage() {
+        return "404";
+    }
+
+    @GetMapping("/403")
+    public String accessErrorPage() {
+        return "403";
+    }
+
+    @GetMapping("/500")
+    public String internalErrorPage() {
+        return "500";
+    }
+
+    @GetMapping("/logout")
+    public String logoutPage() {
+        return "logout";
     }
 
 }
