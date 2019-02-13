@@ -30,9 +30,16 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements Application
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
         super.addResourceHandlers(registry);
-        registry.addResourceHandler("/static/statics.images/**").addResourceLocations("/static/statics.images/");
-        registry.addResourceHandler("/static/css/**").addResourceLocations("/static/css/");
-        registry.addResourceHandler("/static/js/**").addResourceLocations("/static/js/");
+        //addResourceHandler映射路径
+        //addResourceLocations指定路径
+        /*
+        registry.addResourceHandler("/static/images/**").addResourceLocations("classpath:/static/images/");
+        registry.addResourceHandler("/static/css/**").addResourceLocations("classpath:/static/css/");
+        registry.addResourceHandler("/static/js/**").addResourceLocations("classpath:/static/js/");
+        registry.addResourceHandler("/static/fonts/**").addResourceLocations("classpath:/static/fonts/");
+        registry.addResourceHandler("/static/lib/**").addResourceLocations("classpath:/static/lib/");
+        */
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
     }
 
     @Override
@@ -66,6 +73,9 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter implements Application
         templateEngine.setTemplateResolver(templateResolver());
         //支持Spring EL表达式
         templateEngine.setEnableSpringELCompiler(true);
+
+        //支持SpringSecurity方言
+        
         return templateEngine;
     }
 
