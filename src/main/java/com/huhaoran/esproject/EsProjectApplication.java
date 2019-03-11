@@ -19,11 +19,6 @@ public class EsProjectApplication {
         SpringApplication.run(EsProjectApplication.class, args);
     }
 
-    @GetMapping("/hello/world")
-    public String helloWorld() {
-        return "Hello world!";
-    }
-
 
 
 }
