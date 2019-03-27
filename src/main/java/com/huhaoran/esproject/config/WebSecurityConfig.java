@@ -32,5 +32,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin()
                 .loginProcessingUrl("/login") //配置角色登陆处理入口
                 .and();
+        http.csrf().disable(); //csrf防御策略，方便开发，先关掉
+        http.headers().frameOptions().sameOrigin();
     }
+
+    /**
+     * 自定义认证策略
+     */
+
+
 }
