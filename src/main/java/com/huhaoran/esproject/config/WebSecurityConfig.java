@@ -1,8 +1,15 @@
 package com.huhaoran.esproject.config;
 
+import com.huhaoran.esproject.security.AuthProvider;
+import com.huhaoran.esproject.security.LoginAuthFailHandler;
+import com.huhaoran.esproject.security.LoginUrlEntryPoint;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -31,7 +38,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin()
                 .loginProcessingUrl("/login") //配置角色登陆处理入口
-                .and();
+                .failureHandler(authFailHandler())
+                .and()
+                .logout()
+                .logoutUrl("/logout") //处理Url使用原生
+                .logoutSuccessUrl("/logout/page") //处理成功使用自定义的页面
+                .deleteCookies("JSESSIONID")//登出成功删除cookies JSESSIONID
+                .invalidateHttpSession(true) //session会话失效
+                .and()//结束
+                .exceptionHandling()
+                .authenticationEntryPoint(urlEntryPoint())
+                .accessDeniedPage("/403"); //无权访问的提示页面
         http.csrf().disable(); //csrf防御策略，方便开发，先关掉
         http.headers().frameOptions().sameOrigin();
     }
@@ -39,6 +56,44 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 自定义认证策略
      */
+    @Autowired
+    public void configGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authProvider()).eraseCredentials(true);
+    }
+
+    @Bean
+    public AuthProvider authProvider() {
+        return new AuthProvider();
+    }
+
+    @Bean
+    public LoginUrlEntryPoint urlEntryPoint() {
+        return new LoginUrlEntryPoint("/user/login");
+    }
 
 
+    @Bean
+    public LoginAuthFailHandler authFailHandler() {
+        return new LoginAuthFailHandler(urlEntryPoint());
+    }
+/*
+    @Bean
+    public AuthenticationManager authenticationManager() {
+        AuthenticationManager authenticationManager = null;
+        try {
+            authenticationManager =  super.authenticationManager();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return authenticationManager;
+    }
+
+    @Bean
+    public AuthFilter authFilter() {
+        AuthFilter authFilter = new AuthFilter();
+        authFilter.setAuthenticationManager(authenticationManager());
+        authFilter.setAuthenticationFailureHandler(authFailHandler());
+        return authFilter;
+    }
+    */
 }
